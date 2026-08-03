@@ -1,3 +1,4 @@
 # Git Hands-on Practice File
 Line 1: Initial line of code on main branch.
 Line 2: Resolved version combining Main and Feature work.
+Line 3: This change is prepared for Pull Request testing.
