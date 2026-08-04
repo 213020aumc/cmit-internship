@@ -1,0 +1,17 @@
+Additional Notes
+
+This content comes from append.txt.
+
+The purpose of this file is to demonstrate how multiple asynchronous file reads can be chained together using callbacks.
+
+Once both files have been read successfully, their contents can be combined into a single string and written to another file, such as output.txt.
+
+This exercise teaches an important concept in Node.js:
+- Read data from one file.
+- Read data from another file.
+- Process or combine the data.
+- Save the result to a new file.
+
+Later, you'll learn how to perform the same workflow using Promises and async/await, which make the code easier to understand and maintain.
+
+Keep experimenting and happy coding!

@@ -1,0 +1,27 @@
+This is what we know about Node.js: Welcome to Node.js File System Module!
+
+Node.js provides a built-in 'fs' module that allows you to work with files and directories.
+
+Some common file operations include:
+- Reading files
+- Writing files
+- Appending data
+- Renaming files
+- Deleting files
+- Creating directories
+
+The readFile() method reads the contents of a file asynchronously. It accepts a file path, encoding, and a callback function.
+
+Example:
+fs.readFile('sample.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(data);
+});
+
+Asynchronous file operations do not block the execution of other JavaScript code, making Node.js efficient for I/O-heavy applications.
+
+Happy Learning!
+ Created on 1785839948047
