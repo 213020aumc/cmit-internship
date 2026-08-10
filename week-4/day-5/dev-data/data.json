@@ -1,0 +1,68 @@
+[
+  {
+    "id": 0,
+    "topicName": "Variables",
+    "icon": "📦",
+    "category": "JavaScript Basics",
+    "concepts": "let, const, var",
+    "difficulty": "Beginner",
+    "duration": "15 min",
+    "featured": true,
+    "description": "Variables are used to store data in JavaScript. The 'let' keyword allows reassignment, 'const' creates constants that cannot be reassigned, and 'var' is the older function-scoped declaration. Modern JavaScript primarily uses let and const."
+  },
+  {
+    "id": 1,
+    "topicName": "Functions",
+    "icon": "⚙️",
+    "category": "Core Concepts",
+    "concepts": "Function Declaration, Arrow Functions",
+    "difficulty": "Beginner",
+    "duration": "20 min",
+    "featured": true,
+    "description": "Functions are reusable blocks of code that perform specific tasks. JavaScript supports function declarations, function expressions, and arrow functions, each with different use cases and behavior."
+  },
+  {
+    "id": 2,
+    "topicName": "Arrays",
+    "icon": "📚",
+    "category": "Data Structures",
+    "concepts": "map, filter, reduce",
+    "difficulty": "Intermediate",
+    "duration": "30 min",
+    "featured": true,
+    "description": "Arrays are ordered collections of values. JavaScript provides powerful methods like map(), filter(), reduce(), find(), and forEach() to efficiently manipulate array data."
+  },
+  {
+    "id": 3,
+    "topicName": "Objects",
+    "icon": "🧩",
+    "category": "Data Structures",
+    "concepts": "Properties, Methods",
+    "difficulty": "Intermediate",
+    "duration": "25 min",
+    "featured": false,
+    "description": "Objects store data as key-value pairs. They are one of the most important data structures in JavaScript and are widely used to represent real-world entities and application state."
+  },
+  {
+    "id": 4,
+    "topicName": "Promises",
+    "icon": "🤝",
+    "category": "Asynchronous JavaScript",
+    "concepts": "then, catch, finally",
+    "difficulty": "Advanced",
+    "duration": "40 min",
+    "featured": true,
+    "description": "Promises represent the eventual completion or failure of an asynchronous operation. They help avoid callback hell and make asynchronous code easier to read and maintain."
+  },
+  {
+    "id": 5,
+    "topicName": "Async/Await",
+    "icon": "⏳",
+    "category": "Asynchronous JavaScript",
+    "concepts": "async, await",
+    "difficulty": "Advanced",
+    "duration": "35 min",
+    "featured": true,
+    "description": "Async/await is built on top of Promises and provides a cleaner, synchronous-looking syntax for writing asynchronous JavaScript code while remaining non-blocking."
+  }
+]
