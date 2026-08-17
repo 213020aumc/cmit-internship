@@ -1,0 +1,3 @@
+Orders for User 101:
+- Order #1001: Wireless Headphones ($129.99)
+- Order #1002: Mechanical Keyboard ($89.50)
