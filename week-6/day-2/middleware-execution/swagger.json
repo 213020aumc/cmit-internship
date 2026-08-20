@@ -1,0 +1,399 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Task Management API",
+    "version": "1.0.0",
+    "description": "Express 5 REST API demonstrating middleware pipelines, layered architecture (Controller → Service), route-level validation, and centralized error handling."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Development Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tasks",
+      "description": "Task CRUD operations and filtering"
+    }
+  ],
+  "paths": {
+    "/api/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get all tasks",
+        "description": "Retrieve all tasks with an optional filter for completion status.",
+        "parameters": [
+          {
+            "name": "completed",
+            "in": "query",
+            "required": false,
+            "description": "Filter by completion status ('true' or 'false')",
+            "schema": {
+              "type": "string",
+              "enum": ["true", "false"]
+            },
+            "example": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tasks retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskListResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Tasks retrieved successfully",
+                  "data": [
+                    { "id": 1, "title": "Learn Express 5 Architecture", "completed": false },
+                    { "id": 2, "title": "Master Async/Await", "completed": true }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create a new task",
+        "description": "Creates a task. Handled by `validateTaskPayload` middleware before reaching the controller.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskPayload"
+              },
+              "example": {
+                "title": "Master Express 5 Middleware Pipelines"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleTaskResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Task created successfully",
+                  "data": {
+                    "id": 3,
+                    "title": "Master Express 5 Middleware Pipelines",
+                    "completed": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error (Title is missing, empty, or non-string)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Validation Error: 'title' is required and must be a valid string."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{id}": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task by ID",
+        "description": "Fetch a single task by its numeric ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Numeric ID of the task",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleTaskResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Task found",
+                  "data": {
+                    "id": 1,
+                    "title": "Learn Express 5 Architecture",
+                    "completed": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID (must be a number)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Invalid Task ID. Must be a number."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Task not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update an existing task",
+        "description": "Update the title or completion status of a task by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Numeric ID of the task to update",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskPayload"
+              },
+              "example": {
+                "title": "Updated Task Title",
+                "completed": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleTaskResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Task updated successfully",
+                  "data": {
+                    "id": 1,
+                    "title": "Updated Task Title",
+                    "completed": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID (must be a number)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Invalid Task ID. Must be a number."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Task not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete a task",
+        "description": "Remove a task from the system by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Numeric ID of the task to delete",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Task deleted successfully" },
+                    "data": { "type": "null", "example": null }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "Task deleted successfully",
+                  "data": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID (must be a number)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Invalid Task ID. Must be a number."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "fail",
+                  "message": "Task not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "title": { "type": "string", "example": "Learn Express 5 Architecture" },
+          "completed": { "type": "boolean", "example": false }
+        },
+        "required": ["id", "title", "completed"]
+      },
+      "CreateTaskPayload": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Non-empty string for the task title",
+            "example": "Implement unit tests"
+          }
+        }
+      },
+      "UpdateTaskPayload": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Updated task title",
+            "example": "Updated Task Title"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Completion state of the task",
+            "example": true
+          }
+        }
+      },
+      "TaskListResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string", "example": "Tasks retrieved successfully" },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          }
+        }
+      },
+      "SingleTaskResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string", "example": "Task retrieved successfully" },
+          "data": {
+            "$ref": "#/components/schemas/Task"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "fail" },
+          "message": { "type": "string", "example": "Task not found" }
+        }
+      }
+    }
+  }
+}
