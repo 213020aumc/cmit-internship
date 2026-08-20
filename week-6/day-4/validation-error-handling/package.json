@@ -1,0 +1,19 @@
+{
+  "name": "validation-error-handling",
+  "version": "1.0.0",
+  "description": "Express 5 API with Joi schema validation, custom AppError, and centralized global error handling",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --env-file=.env server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1",
+    "joi": "^17.13.3",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
