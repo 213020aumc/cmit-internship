@@ -32,7 +32,14 @@ export const updateTask = async (req, res) => {
   if (isNaN(taskId))
     throw new AppError("Invalid Task ID. Must be a number.", 400);
 
-  const updatedTask = await taskService.updateExistingTask(taskId, req.body);
+  const { title, completed } = req.body;
+  const updates = { title, completed };
+
+  Object.keys(updates).forEach(
+    (key) => updates[key] === undefined && delete updates[key],
+  );
+
+  const updatedTask = await taskService.updateExistingTask(taskId, updates);
 
   if (!updatedTask) throw new AppError("Task not found", 404);
 
