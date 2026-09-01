@@ -214,6 +214,10 @@ db.users.find(
 
 > **Rule:** You cannot mix inclusion and exclusion in the same projection, except for `_id: 0`.
 
+The following infographic demonstrates how Mongoose's `.select()` method translates MongoDB projection rules into practice — covering field inclusion, exclusion, the `_id` exception, mixed-mode errors, and how projections apply through `.populate()`:
+
+![Mongoose Projection (.select()) — How It Works](Moongoose%20Project%20(.select()).png)
+
 ---
 
 ### 3. Sorting
