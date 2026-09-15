@@ -1,4 +1,4 @@
-import { AppError } from "../utils/appError.js";
+import { AppError } from "../tasks/utils/appError.js";
 
 export const validate = (schema) => (req, res, next) => {
   const { error, value } = schema.validate(req.body, { abortEarly: false });

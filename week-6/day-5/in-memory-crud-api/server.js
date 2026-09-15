@@ -1,6 +1,6 @@
 import express from "express";
-import taskRoutes from "./routes/task.routes.js";
-import { AppError } from "./utils/appError.js";
+import taskRoutes from "./tasks/routes/task.routes.js";
+import { AppError } from "./tasks/utils/appError.js";
 
 const app = express();
 app.use(express.json());

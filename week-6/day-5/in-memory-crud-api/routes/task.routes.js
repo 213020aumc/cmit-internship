@@ -1,10 +1,10 @@
 import express from "express";
-import * as controller from "../controllers/task.controller.js";
-import { validate } from "../middleware/validate.middleware.js";
+import * as controller from "../tasks/controllers/task.controller.js";
+import { validate } from "../tasks/middleware/validate.middleware.js";
 import {
   createTaskSchema,
   updateTaskSchema,
-} from "../validations/task.validation.js";
+} from "../tasks/validations/task.validation.js";
 
 const router = express.Router();
 
