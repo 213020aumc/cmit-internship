@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import { AppError } from "./utils/appError.js";
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
 
-// ... existing imports ...
 import courseRoutes from "./routes/course.routes.js";
 import instructorRoutes from "./routes/instructor.routes.js";
 import { requestLogger } from "./middleware/logger.middleware.js";
